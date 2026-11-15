@@ -22,6 +22,7 @@ Each maps the original OpenMoji hexadecimal code to:
 {
   "viewBox": "0 0 72 72",
   "markup": "<g>...allowlisted SVG geometry...</g>",
+  "filledMarkup": "<g>...solid silhouette with identifying cutouts...</g>",
   "rendering": "mask"
 }
 ```
@@ -35,6 +36,11 @@ without line art retain outlined color-region boundaries with black knockouts.
 Skin-shadow layers are omitted. Original filled thin line contours remain thin
 filled mask contours, which avoids double outlines. All paints are black or white,
 and no image, font, script, external reference, CSS, or SVG ID is accepted.
+
+`markup` supplies Outline CNC artwork. `filledMarkup` supplies Filled CNC artwork:
+solid color-region silhouettes with monochrome feature cutouts. Simple symbols
+use the same simplified closed silhouette for both styles. Both reveal the same
+brushed aluminum finish. Thickness adjustment applies only to Outline CNC.
 
 The complete **color** SVG source is intentionally used. OpenMoji's black SVG
 set omits some color-defined boundaries: for example, its black US flag contains
