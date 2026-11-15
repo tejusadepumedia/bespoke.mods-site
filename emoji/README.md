@@ -27,18 +27,19 @@ Each maps the original OpenMoji hexadecimal code to:
 ```
 
 Render this markup in a luminance mask with a black background. White reveals
-flat aluminum; black is unengraved background. The artwork contains no visible
-color or shading. Color-defined regions become outlined boundaries with opaque
-black knockouts, and original line art becomes white engraving. Skin-shadow
-layers are omitted. Original geometry, transforms, nested groups and painter
-order are retained. Original filled thin contours remain thin filled mask
-contours, which avoids double outlines. All paints are literal black or white,
+aluminum; black is unengraved background. Ordinary emoji use authored line art
+without tracing color/shading regions. Grinning mouths omit teeth dividers;
+the skull omits tooth bars and has a closed jaw; sunglasses omit tiny duplicate
+bridge/rim details; fire uses one closed flame silhouette. Flags and artwork
+without line art retain outlined color-region boundaries with black knockouts.
+Skin-shadow layers are omitted. Original filled thin line contours remain thin
+filled mask contours, which avoids double outlines. All paints are black or white,
 and no image, font, script, external reference, CSS, or SVG ID is accepted.
 
 The complete **color** SVG source is intentionally used. OpenMoji's black SVG
 set omits some color-defined boundaries: for example, its black US flag contains
 only the outer rectangle. The adapted masks retain the internal flag details
-and other color-defined shapes.
+where they are needed to identify flags or artwork without line art.
 
 `src/data/emoji-catalog.json` contains searchable names, keywords, categories,
 canonical Unicode presentation strings and the chunk for each code. Mixed-tone
