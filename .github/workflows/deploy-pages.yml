@@ -16,10 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +36,27 @@ jobs:
         with:
           path: ${{ runner.temp }}/site
 
+  # Deploying in its own job gives the uploaded artifact time to be registered. GitHub's
+  # artifact lookup still occasionally answers "No artifacts named github-pages were found",
+  # so a failed first attempt waits and tries once more before the run is marked failed.
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url || steps.retry.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Deploy Pages artifact
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Wait before retrying
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+
+      - name: Retry Pages deployment
+        id: retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
